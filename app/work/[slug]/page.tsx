@@ -1,27 +1,21 @@
+import React from 'react';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
-import { caseStudies } from '@/lib/data';
-import { notFound } from 'next/navigation';
+import { Badge } from '@/components/ui/Badge';
+import { MetricCard } from '@/components/MetricCard';
+import { ProjectCard } from '@/components/ProjectCard';
+import { caseStudies } from '@/lib/data/case-studies';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
-  const study = caseStudies.find((s) => s.slug === slug);
-
-  if (!study) {
-    return {
-      title: 'Case Study Not Found',
-    };
-  }
-
-  return {
-    title: `${study.title} | Omraan Shibani`,
-    description: study.subtitle,
-  };
+export async function generateStaticParams() {
+  return caseStudies.map((study) => ({
+    slug: study.slug,
+  }));
 }
 
 export default async function CaseStudyPage({ params }: PageProps) {
@@ -32,212 +26,172 @@ export default async function CaseStudyPage({ params }: PageProps) {
     notFound();
   }
 
+  // Get related projects (exclude current one, take first 2)
+  const relatedProjects = caseStudies
+    .filter((s) => s.slug !== slug)
+    .slice(0, 2);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F1E6] font-inter selection:bg-[#5D9CEC] selection:text-white">
       <Navigation />
 
-      <main className="flex-1">
-        <article>
-          {/* Header */}
-          <section className="border-b border-accent/20 py-12 md:py-16">
-            <div className="container-max">
-              <Link
-                href="/work"
-                className="text-sm text-muted hover:text-foreground transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-accent mb-8 inline-block"
-              >
-                ← Back to work
-              </Link>
-
-              <div className="mb-8">
-                <h1
-                  className="text-5xl md:text-6xl font-bold text-foreground mb-3"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
-                  {study.title}
-                </h1>
-                <p className="text-lg text-muted">{study.subtitle}</p>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-8">
-                {study.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 text-xs bg-accent/10 text-accent rounded-md"
+      <main className="pt-[56px] pb-20">
+        <div className="max-w-[900px] mx-auto px-6 md:px-10">
+          
+          {/* HEADER BLOCK */}
+          <div className="pt-10 md:pt-20 mb-12">
+            <Link 
+              href="/work" 
+              className="inline-block text-[14px] text-[#5D9CEC] mb-10 hover:underline hover:brightness-110"
+            >
+              ← Back to Work
+            </Link>
+            
+            <h1 className="text-[40px] md:text-[56px] font-bold text-[#F5F1E6] mb-4 font-space leading-[1.1]">
+              {study.title}
+            </h1>
+            
+            <p className="text-[18px] text-[#AFAFAF] leading-[1.5] mb-10">
+              {study.subtitle}
+            </p>
+            
+            {/* Client & Meta Strip */}
+            <div className="flex flex-wrap gap-3 mb-12">
+              {[
+                { label: 'Client', value: study.clientType },
+                { label: 'Duration', value: study.duration },
+                { label: 'Key Metric', value: study.keyMetric, highlight: true },
+              ].map((item, i) => (
+                item.value && (
+                  <div 
+                    key={i} 
+                    className={`rounded-[12px] border border-[rgba(255,255,255,0.1)] px-3 py-1.5 text-[13px] ${
+                      item.highlight ? 'text-[#5D9CEC] font-medium' : 'text-[#AFAFAF]'
+                    }`}
                   >
-                    {tag}
-                  </span>
+                    <span className="opacity-60 mr-1">{item.label}:</span>
+                    {item.value}
+                  </div>
+                )
+              ))}
+            </div>
+            
+            <div className="h-px bg-[rgba(255,255,255,0.08)] w-full mb-12" />
+          </div>
+          
+          {/* MAIN CONTENT */}
+          <div className="space-y-12 md:space-y-16">
+            
+            {/* Overview */}
+            {study.overview && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">Overview</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch]">
+                  {study.overview}
+                </p>
+              </section>
+            )}
+
+            {/* The Problem */}
+            {study.problem && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">The Problem</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch]">
+                  {study.problem}
+                </p>
+              </section>
+            )}
+
+            {/* Constraints */}
+            {study.constraints && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">Constraints</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch]">
+                  {study.constraints}
+                </p>
+              </section>
+            )}
+
+            {/* The Solution */}
+            {study.solution && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">The Solution</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch]">
+                  {study.solution}
+                </p>
+              </section>
+            )}
+
+            {/* Results */}
+            {study.results && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">Results</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch] mb-8">
+                  {study.results}
+                </p>
+                
+                {/* Metrics Grid */}
+                {study.metrics && study.metrics.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {study.metrics.map((metric, i) => (
+                      <MetricCard key={i} value={metric.value} label={metric.label} />
+                    ))}
+                  </div>
+                )}
+              </section>
+            )}
+
+            {/* Tools & Stack */}
+            {study.stack && study.stack.length > 0 && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">Tools & Stack</h2>
+                <div className="flex flex-wrap gap-2">
+                  {study.stack.map((tool) => (
+                    <Badge key={tool} className="text-[13px] px-3 py-1.5">
+                      {tool}
+                    </Badge>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Unique */}
+            {study.unique && (
+              <section>
+                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#F5F1E6] mb-4 font-space">What Made This Unique</h2>
+                <p className="text-[16px] text-[#AFAFAF] leading-[1.7] max-w-[65ch]">
+                  {study.unique}
+                </p>
+              </section>
+            )}
+
+          </div>
+
+          <div className="mt-16 pt-10 border-t border-[rgba(255,255,255,0.08)]">
+             <Link 
+              href="/work" 
+              className="inline-block text-[14px] text-[#5D9CEC] hover:underline hover:brightness-110"
+            >
+              ← Back to Work
+            </Link>
+          </div>
+
+          {/* Related Case Studies */}
+          <div className="mt-20">
+             <h2 className="text-[32px] font-bold text-[#F5F1E6] mb-8 font-space">
+                More Case Studies
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {relatedProjects.map((project) => (
+                  <ProjectCard key={project.slug} project={project} />
                 ))}
               </div>
+          </div>
 
-              {/* Metrics Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {study.metrics.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="border border-accent/20 rounded-[1.25rem] p-4"
-                  >
-                    <p className="text-2xl md:text-3xl font-bold text-foreground">
-                      {metric.value}
-                    </p>
-                    <p className="text-xs md:text-sm text-muted mt-1">
-                      {metric.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Content Sections */}
-          <section className="py-16 md:py-24">
-            <div className="container-max max-w-2xl">
-              <div className="space-y-12">
-                {study.client && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Client
-                    </h2>
-                    <p className="text-base text-foreground">{study.client}</p>
-                  </div>
-                )}
-
-                {study.problem && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Problem
-                    </h2>
-                    <p className="text-base text-foreground">{study.problem}</p>
-                  </div>
-                )}
-
-                {study.constraints && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Constraints
-                    </h2>
-                    <p className="text-base text-foreground">
-                      {study.constraints}
-                    </p>
-                  </div>
-                )}
-
-                {study.solution && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Solution
-                    </h2>
-                    <p className="text-base text-foreground">{study.solution}</p>
-                  </div>
-                )}
-
-                {study.architecture && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Architecture
-                    </h2>
-                    <p className="text-base text-foreground">
-                      {study.architecture}
-                    </p>
-                  </div>
-                )}
-
-                {study.implementation && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Implementation
-                    </h2>
-                    <p className="text-base text-foreground">
-                      {study.implementation}
-                    </p>
-                  </div>
-                )}
-
-                {study.results && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Results
-                    </h2>
-                    <p className="text-base text-foreground">{study.results}</p>
-                  </div>
-                )}
-
-                {study.roi && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      ROI
-                    </h2>
-                    <p className="text-base text-foreground">{study.roi}</p>
-                  </div>
-                )}
-
-                {study.nextSteps && (
-                  <div>
-                    <h2
-                      className="text-2xl md:text-3xl font-bold text-foreground mb-4"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                    >
-                      Next Steps
-                    </h2>
-                    <p className="text-base text-foreground">
-                      {study.nextSteps}
-                    </p>
-                  </div>
-                )}
-
-                {study.disclaimer && (
-                  <div className="border-t border-accent/20 pt-8">
-                    <p className="text-xs text-muted italic">
-                      Disclaimer: {study.disclaimer}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-12 pt-8 border-t border-accent/20">
-                <Link
-                  href="/work"
-                  className="text-sm text-muted hover:text-foreground transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-accent"
-                >
-                  ← Back to work
-                </Link>
-              </div>
-            </div>
-          </section>
-        </article>
+        </div>
       </main>
 
       <Footer />
     </div>
   );
-}
-
-export function generateStaticParams() {
-  return caseStudies.map((study) => ({
-    slug: study.slug,
-  }));
 }

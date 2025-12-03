@@ -2,10 +2,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0b0b;
-  --foreground: #f5f1e6;
-  --muted: #9ca3af;
-  --accent: #a3a3a3;
+  --background: #0A0A0A;
+  --foreground: #F5F1E6;
+  --secondary: #AFAFAF;
+  --accent: #5D9CEC;
+  --border: rgba(255, 255, 255, 0.15);
+  --border-hover: rgba(255, 255, 255, 0.25);
+  --fill-subtle: rgba(255, 255, 255, 0.02);
   --border-radius: 1.25rem;
 }
 

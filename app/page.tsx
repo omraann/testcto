@@ -2,8 +2,9 @@ import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import WavesBackground from '@/components/WavesBackground';
-import ProjectCard from '@/components/ProjectCard';
-import { caseStudies, services, stats } from '@/lib/data';
+import { ProjectCard } from '@/components/ProjectCard';
+import { services, stats } from '@/lib/data';
+import { caseStudies } from '@/lib/data/case-studies';
 
 export default function Home() {
   return (

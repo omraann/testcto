@@ -1,44 +1,40 @@
+import React from 'react';
 import Link from 'next/link';
-import { CaseStudy } from '@/lib/data';
+import { Card } from './ui/Card';
+import { Badge } from './ui/Badge';
+import { CaseStudy } from '@/lib/data/case-studies';
 
 interface ProjectCardProps {
   project: CaseStudy;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <Link href={`/work/${project.slug}`}>
-      <div className="group relative border border-accent/20 rounded-[1.25rem] p-6 hover:border-accent/50 hover:shadow-lg transition-all duration-300 cursor-pointer h-full flex flex-col">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
-            {project.title}
-          </h3>
-          <p className="text-sm text-muted mb-4">{project.subtitle}</p>
+    <Link href={`/work/${project.slug}`} className="block group h-full">
+      <Card className="h-full flex flex-col group-hover:border-[rgba(255,255,255,0.25)] group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.3)] group-hover:scale-[1.02] group-hover:-translate-y-[2px]">
+        {/* Optional Thumbnail could go here */}
+        
+        <h3 className="text-[22px] font-bold text-[#F5F1E6] mt-4 group-hover:text-[#5D9CEC] transition-colors duration-200">
+          {project.title}
+        </h3>
+        
+        <p className="text-[15px] text-[#AFAFAF] mt-2 mb-4 line-clamp-2">
+          {project.subtitle}
+        </p>
+        
+        <div className="flex flex-wrap gap-[6px] mt-auto mb-4">
+          {project.tags.slice(0, 5).map((tag) => (
+            <Badge key={tag} className="text-[10px] px-2 py-1 h-[22px]">
+              {tag}
+            </Badge>
+          ))}
         </div>
-
-        <div className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="px-2 py-1 text-xs bg-accent/10 text-accent rounded-md"
-              >
-                {tag}
-              </span>
-            ))}
-            {project.tags.length > 3 && (
-              <span className="px-2 py-1 text-xs text-muted">
-                +{project.tags.length - 3} more
-              </span>
-            )}
-          </div>
-
-          <div className="text-sm text-accent group-hover:text-foreground transition-colors flex items-center gap-1">
-            Read case study 
-            <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </div>
+        
+        <div className="text-[14px] font-medium text-[#5D9CEC] flex items-center mt-2 group-hover:underline">
+          Read case study 
+          <span className="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
         </div>
-      </div>
+      </Card>
     </Link>
   );
-}
+};
