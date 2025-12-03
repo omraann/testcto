@@ -30,9 +30,10 @@ export default function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted hover:text-foreground transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-accent"
+              className="text-sm text-muted hover:text-foreground transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-accent relative group"
             >
               {link.label}
+              <span className="absolute bottom-0 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full"></span>
             </Link>
           ))}
         </div>

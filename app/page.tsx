@@ -76,8 +76,8 @@ export default function Home() {
           <div className="container-max">
             <div className="grid grid-cols-3 gap-4 md:gap-8">
               {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-foreground">
+                <div key={stat.label} className="text-center group">
+                  <p className="text-2xl md:text-3xl font-bold text-foreground group-hover:text-accent transition-colors">
                     {stat.value}
                   </p>
                   <p className="text-sm text-muted">{stat.label}</p>
@@ -101,7 +101,7 @@ export default function Home() {
               {services.map((service) => (
                 <div
                   key={service.title}
-                  className="border border-accent/20 rounded-[1.25rem] p-6 hover:border-accent/50 transition-colors"
+                  className="border border-accent/20 rounded-[1.25rem] p-6 hover:border-accent/50 hover:shadow-lg hover:bg-accent/5 transition-all duration-300 cursor-pointer"
                 >
                   <h3 className="text-lg font-semibold text-foreground mb-3">
                     {service.title}

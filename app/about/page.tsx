@@ -15,25 +15,38 @@ export default function AboutPage() {
       <main className="flex-1">
         <section className="py-16 md:py-24">
           <div className="container-max max-w-2xl">
-            <h1
-              className="text-5xl md:text-6xl font-bold text-foreground mb-8"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              About
-            </h1>
+            <div className="mb-12">
+              <h1
+                className="text-5xl md:text-6xl font-bold text-foreground mb-8"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                About
+              </h1>
 
-            <div className="prose prose-invert max-w-none mb-12">
-              <p className="text-lg text-foreground leading-relaxed mb-6">
-                5+ years shipping AI workflows and web apps. 2,000+ n8n
-                automations. 50+ sites. RAG agents, voice agents, proactive
-                assistants, data pipelines.
-              </p>
+              <div className="flex justify-center mb-8">
+                <div
+                  className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-accent/30 bg-accent/5 overflow-hidden"
+                  style={{
+                    backgroundImage: 'url(/portrait.svg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+              </div>
 
-              <p className="text-base text-muted">
-                Specializing in rapid AI implementation, automation architecture,
-                and full-stack development. Built systems that scale from
-                prototype to production.
-              </p>
+              <div className="prose prose-invert max-w-none">
+                <p className="text-lg text-foreground leading-relaxed mb-6">
+                  5+ years shipping AI workflows and web apps. 2,000+ n8n
+                  automations. 50+ sites. RAG agents, voice agents, proactive
+                  assistants, data pipelines.
+                </p>
+
+                <p className="text-base text-muted">
+                  Specializing in rapid AI implementation, automation architecture,
+                  and full-stack development. Built systems that scale from
+                  prototype to production.
+                </p>
+              </div>
             </div>
 
             <div>
@@ -44,13 +57,13 @@ export default function AboutPage() {
                 Certifications
               </h2>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {certificates.map((cert) => (
                   <div
                     key={cert.name}
-                    className="border border-accent/20 rounded-[1.25rem] p-4 text-center"
+                    className="border border-accent/20 rounded-[1.25rem] p-3 text-center hover:border-accent/50 transition-colors"
                   >
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-xs font-medium text-foreground leading-relaxed">
                       {cert.name}
                     </p>
                   </div>

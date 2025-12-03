@@ -42,6 +42,70 @@ export default function ContactPage() {
               </a>
             </div>
 
+            <div className="border-t border-accent/20 pt-12 mb-12">
+              <h2
+                className="text-2xl font-bold text-foreground mb-6"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Or send a message
+              </h2>
+
+              <form 
+                className="space-y-6 max-w-lg"
+                action="https://formspree.io/f/your-form-id"
+                method="POST"
+              >
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    className="w-full px-4 py-3 bg-background border border-accent/20 rounded-[1.25rem] text-foreground placeholder:text-muted focus:outline-2 focus:outline-offset-2 focus:outline-accent focus:border-accent/50 transition-colors"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 bg-background border border-accent/20 rounded-[1.25rem] text-foreground placeholder:text-muted focus:outline-2 focus:outline-offset-2 focus:outline-accent focus:border-accent/50 transition-colors"
+                    placeholder="your@email.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    required
+                    className="w-full px-4 py-3 bg-background border border-accent/20 rounded-[1.25rem] text-foreground placeholder:text-muted focus:outline-2 focus:outline-offset-2 focus:outline-accent focus:border-accent/50 transition-colors resize-none"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full px-6 py-3 bg-accent/20 text-foreground hover:bg-accent/30 border border-accent rounded-[1.25rem] transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-accent"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+
             <div className="border-t border-accent/20 pt-12">
               <h2
                 className="text-2xl font-bold text-foreground mb-4"
