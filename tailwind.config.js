@@ -12,8 +12,11 @@ module.exports = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        muted: 'var(--muted)',
+        secondary: 'var(--secondary)',
         accent: 'var(--accent)',
+        border: 'var(--border)',
+        'border-hover': 'var(--border-hover)',
+        'fill-subtle': 'var(--fill-subtle)',
       },
       borderRadius: {
         'xl': '1.25rem',
