@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/Button';
 import { MetricCard } from '@/components/MetricCard';
 import { ServiceCard } from '@/components/ServiceCard';
 import { ProjectCard } from '@/components/ProjectCard';
+import { SectionHeading } from '@/components/SectionHeading';
+import { ScrollProgress } from '@/components/ScrollProgress';
+import { FadeInOnScroll, StaggerChildren } from '@/components/animations';
 import { caseStudies } from '@/lib/data/case-studies';
 
 export default function WorkPage() {
@@ -39,79 +42,77 @@ export default function WorkPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F5F1E6] font-inter selection:bg-[#5D9CEC] selection:text-white">
+    <div className="min-h-screen bg-background text-foreground font-inter selection:bg-accent selection:text-white">
       <Navigation />
+      <ScrollProgress />
 
       <main className="pt-[56px]">
         {/* HERO SECTION */}
-        <section className="relative overflow-hidden py-[60px] md:py-[80px]">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 z-0 pointer-events-none" 
-               style={{ 
-                 backgroundImage: 'linear-gradient(45deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)', 
-                 backgroundSize: '30px 30px' 
-               }} 
-          />
+        <section className="relative overflow-hidden py-20 md:py-24 hero-pattern">
           
           <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-10">
             <div className="flex flex-col md:flex-row items-center md:items-start md:justify-between gap-10 md:gap-16">
               
               {/* Left Column (Text) */}
-              <div className="flex-1 text-center md:text-left pt-10 md:pt-10">
-                <h1 className="text-[48px] md:text-[64px] font-bold leading-[1.1] mb-6 text-[#F5F1E6] font-space">
+              <FadeInOnScroll className="flex-1 text-center md:text-left pt-10 md:pt-10">
+                <h1 className="text-[48px] md:text-[72px] font-bold leading-[1.1] mb-6 text-foreground font-space" style={{ textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)' }}>
                   Selected Work
                 </h1>
-                <p className="text-[16px] md:text-[18px] text-[#AFAFAF] leading-[1.6] mb-8 max-w-[600px] mx-auto md:mx-0">
+                <p className="text-[16px] md:text-[18px] text-secondary leading-[1.8] mb-8 max-w-[600px] mx-auto md:mx-0">
                   Building scalable AI systems for forward-thinking founders. 
                   Specializing in complex automations, RAG pipelines, and full-stack integration.
                 </p>
                 <div className="flex items-center justify-center md:justify-start gap-4">
-                  <Button href="https://calendly.com/omraan" target="_blank" variant="primary">
+                  <Button href="https://calendly.com/omraan" target="_blank" variant="primary" size="large">
                     Book a call
                   </Button>
-                  <Button href="mailto:omraanalshibany@gmail.com" variant="secondary">
+                  <Button href="mailto:omraanalshibany@gmail.com" variant="secondary" size="large">
                     Email
                   </Button>
                 </div>
-              </div>
+              </FadeInOnScroll>
 
               {/* Right Column (Image) */}
-              <div className="flex-shrink-0">
-                <div className="w-[240px] h-[240px] md:w-[320px] md:h-[320px] rounded-[16px] md:rounded-[20px] border border-[rgba(255,255,255,0.15)] bg-[#1a1a1a] flex items-center justify-center overflow-hidden">
+              <FadeInOnScroll delay={0.2} className="flex-shrink-0">
+                <div className="w-[240px] h-[240px] md:w-[320px] md:h-[320px] rounded-[20px] border border-border bg-[#1a1a1a] flex items-center justify-center overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(93,156,236,0.15)]">
                    {/* Placeholder for Profile Image */}
                    <div className="text-[#333] font-bold text-6xl">OS</div>
-                   {/* If an image was available, we would use <Image /> here */}
                 </div>
-              </div>
+              </FadeInOnScroll>
 
             </div>
           </div>
         </section>
 
         {/* KEY METRICS SECTION */}
-        <section className="py-[60px] md:py-[80px]">
+        <section className="py-16 md:py-20 border-y border-[rgba(255,255,255,0.08)]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-              {metrics.map((metric) => (
-                <MetricCard key={metric.label} value={metric.value} label={metric.label} />
+            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
+              {metrics.map((metric, i) => (
+                <MetricCard 
+                  key={metric.label} 
+                  value={metric.value} 
+                  label={metric.label}
+                  icon={i === 0 ? '⚡' : i === 1 ? '✓' : i === 2 ? '→' : '↑'}
+                />
               ))}
-            </div>
+            </StaggerChildren>
           </div>
         </section>
 
         {/* SERVICES SECTION */}
-        <section className="py-[80px]">
+        <section className="py-24">
           <div className="max-w-[1200px] mx-auto px-6 md:px-10">
-            <div className="mb-8">
-              <h2 className="text-[32px] md:text-[40px] font-semibold text-[#F5F1E6] mb-2 font-space">
+            <FadeInOnScroll>
+              <SectionHeading className="mb-12">
                 Services
-              </h2>
-              <p className="text-[16px] text-[#AFAFAF]">
+              </SectionHeading>
+              <p className="text-[16px] text-secondary mb-12 max-w-[600px]">
                 Technical capabilities and specialized areas of focus.
               </p>
-            </div>
+            </FadeInOnScroll>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {services.map((service) => (
                 <ServiceCard
                   key={service.title}
@@ -120,27 +121,27 @@ export default function WorkPage() {
                   tags={service.tags}
                 />
               ))}
-            </div>
+            </StaggerChildren>
           </div>
         </section>
 
         {/* SELECTED WORK SECTION */}
-        <section className="py-[40px] pb-[100px]">
+        <section className="py-24 border-t border-[rgba(255,255,255,0.08)]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-10">
-            <div className="mb-10">
-              <h2 className="text-[32px] md:text-[40px] font-semibold text-[#F5F1E6] mb-2 font-space">
-                Our Work
-              </h2>
-              <p className="text-[16px] text-[#AFAFAF]">
+            <FadeInOnScroll>
+              <SectionHeading className="mb-12">
+                Case Studies
+              </SectionHeading>
+              <p className="text-[16px] text-secondary mb-12 max-w-[600px]">
                 Recent projects showcasing impact and outcomes.
               </p>
-            </div>
+            </FadeInOnScroll>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
+            <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {caseStudies.map((study) => (
                 <ProjectCard key={study.slug} project={study} />
               ))}
-            </div>
+            </StaggerChildren>
           </div>
         </section>
       </main>

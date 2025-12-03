@@ -9,23 +9,23 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-[rgba(255,255,255,0.1)] bg-[#0A0A0A] py-10 md:py-10 px-6">
-      <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center text-center gap-3">
-        <p className="text-[14px] text-[#AFAFAF]">
+    <footer className="mt-32 border-t border-[rgba(255,255,255,0.08)] bg-[#0A0A0A] py-12 md:py-16 px-6">
+      <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center text-center gap-6">
+        <p className="text-[14px] text-secondary">
           © 2024 omraan shibani. AI systems that scale.
         </p>
         
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[14px]">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[14px]">
           {links.map((link, index) => (
             <div key={link.label} className="flex items-center">
               <Link
                 href={link.href}
-                className="text-[#F5F1E6] hover:text-[#5D9CEC] hover:underline focus:outline-none focus:ring-2 focus:ring-[#5D9CEC] transition-colors duration-150"
+                className="text-foreground hover:text-accent animated-underline transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-accent rounded-sm px-1"
               >
                 {link.label}
               </Link>
               {index < links.length - 1 && (
-                <span className="ml-4 text-[#AFAFAF] hidden sm:inline">·</span>
+                <span className="ml-6 text-secondary hidden sm:inline">·</span>
               )}
             </div>
           ))}
