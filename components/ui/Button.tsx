@@ -2,6 +2,7 @@ import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
+  size?: 'small' | 'standard' | 'large';
   href?: string;
   children: React.ReactNode;
   target?: string;
@@ -10,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({
   variant = 'primary',
+  size = 'standard',
   href,
   className = '',
   children,
@@ -18,16 +20,22 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all duration-150 ease-out';
+    'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-150 focus:outline-2 focus:outline-offset-2 focus:outline-accent disabled:opacity-50 disabled:cursor-not-allowed';
+
+  const sizeStyles = {
+    small: 'h-[36px] px-4 text-[13px]',
+    standard: 'h-[44px] px-6 text-[14px]',
+    large: 'h-[48px] px-8 text-[16px]',
+  };
 
   const variants = {
     primary:
-      'bg-[#5D9CEC] text-[#F5F1E6] border border-[#5D9CEC] hover:brightness-110 hover:-translate-y-0.5 focus:outline-2 focus:outline-offset-2 focus:outline-[#5D9CEC]',
+      'bg-accent text-foreground border border-accent shadow-[0_4px_12px_rgba(93,156,236,0.2)] hover:brightness-110 hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(93,156,236,0.25)] active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.2)]',
     secondary:
-      'bg-transparent text-[#AFAFAF] border border-[rgba(255,255,255,0.2)] hover:text-[#5D9CEC] hover:border-[rgba(255,255,255,0.4)] focus:outline-2 focus:outline-offset-2 focus:outline-[#5D9CEC]',
+      'bg-transparent text-secondary border border-border hover:text-accent hover:border-border-hover hover:brightness-110 hover:-translate-y-[2px] hover:shadow-[0_8px_16px_rgba(0,0,0,0.15)]',
   };
 
-  const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`;
+  const combinedClassName = `${baseStyles} ${sizeStyles[size]} ${variants[variant]} ${className}`;
 
   if (href) {
     return (
