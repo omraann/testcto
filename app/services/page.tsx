@@ -27,16 +27,16 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-8 max-w-2xl">
               {services.map((service) => (
                 <div
                   key={service.title}
-                  className="border border-accent/20 rounded-[1.25rem] p-8 hover:border-accent/50 transition-colors"
+                  className="border-l-2 border-transparent hover:border-accent/50 pl-8 py-4 transition-all group"
                 >
-                  <h2 className="text-2xl font-bold text-foreground mb-4">
+                  <h2 className="text-2xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
                     {service.title}
                   </h2>
-                  <p className="text-base text-muted mb-6">
+                  <p className="text-base text-muted">
                     {service.description}
                   </p>
                 </div>

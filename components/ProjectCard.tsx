@@ -8,7 +8,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/work/${project.slug}`}>
-      <div className="group relative border border-accent/20 rounded-[1.25rem] p-6 hover:border-accent/50 transition-colors cursor-pointer h-full flex flex-col">
+      <div className="group relative border border-accent/20 rounded-[1.25rem] p-6 hover:border-accent/50 hover:shadow-lg transition-all duration-300 cursor-pointer h-full flex flex-col">
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
             {project.title}
@@ -33,8 +33,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             )}
           </div>
 
-          <div className="text-sm text-accent group-hover:text-foreground transition-colors">
-            Read case study →
+          <div className="text-sm text-accent group-hover:text-foreground transition-colors flex items-center gap-1">
+            Read case study 
+            <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
           </div>
         </div>
       </div>
