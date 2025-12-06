@@ -14,11 +14,10 @@ export const SectionHeading = ({
   return (
     <div className="relative">
       {showAccentBar && (
-        <div className="w-[40px] h-[4px] bg-accent mb-3" />
+        <div className="w-10 h-1 bg-accent mb-3" />
       )}
       <h2
-        className={`text-[40px] md:text-[44px] font-bold text-foreground font-space ${className}`}
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        className={`text-h2-mobile md:text-h2-desktop font-bold text-foreground font-space ${className}`}
       >
         {children}
       </h2>
