@@ -8,6 +8,7 @@ import { ScrollProgress } from '@/components/ScrollProgress';
 import { FadeInOnScroll } from '@/components/animations/FadeInOnScroll';
 import { StaggerChildren } from '@/components/animations/StaggerChildren';
 import { AnimatedCounter } from '@/components/animations/AnimatedCounter';
+import { Button } from '@/components/ui/Button';
 import { services, stats } from '@/lib/data';
 import { caseStudies } from '@/lib/data/case-studies';
 
@@ -31,10 +32,8 @@ export default function Home() {
               {/* Left: Text Content */}
               <FadeInOnScroll className="space-y-8">
                 <div>
-                  <h1
-                    className="text-[48px] md:text-[72px] font-bold text-foreground mb-4 leading-[1.1]"
+                  <h1 className="text-h1-mobile md:text-h1-desktop font-bold text-foreground mb-4 leading-[1.1] font-space"
                     style={{ 
-                      fontFamily: "'Space Grotesk', sans-serif",
                       textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
                       letterSpacing: '0.02em'
                     }}
@@ -46,24 +45,26 @@ export default function Home() {
                   </p>
                 </div>
 
-                <p className="text-lg text-secondary max-w-md leading-relaxed" style={{ letterSpacing: '0.02em' }}>
+                <p className="text-lg text-secondary max-w-content leading-relaxed" style={{ letterSpacing: '0.02em' }}>
                   We build AI systems that book calls, reduce busywork, and scale
                   delivery.
                 </p>
 
                 <div className="flex gap-4 flex-wrap">
-                  <a
+                  <Button
                     href="mailto:omraanalshibany@gmail.com"
-                    className="h-[48px] px-8 flex items-center justify-center bg-accent text-foreground border border-accent rounded-xl font-medium transition-all duration-150 hover:brightness-110 hover:-translate-y-[2px] shadow-[0_4px_12px_rgba(93,156,236,0.2)] hover:shadow-[0_12px_24px_rgba(93,156,236,0.25)] focus:outline-2 focus:outline-offset-2 focus:outline-accent"
+                    variant="primary"
+                    size="large"
                   >
                     Email
-                  </a>
-                  <a
+                  </Button>
+                  <Button
                     href="https://wa.me/963996905457"
-                    className="h-[48px] px-8 flex items-center justify-center bg-transparent text-secondary border border-border rounded-xl font-medium transition-all duration-150 hover:text-accent hover:border-border-hover hover:-translate-y-[2px] hover:shadow-[0_8px_16px_rgba(0,0,0,0.15)] focus:outline-2 focus:outline-offset-2 focus:outline-accent"
+                    variant="secondary"
+                    size="large"
                   >
                     WhatsApp
-                  </a>
+                  </Button>
                 </div>
               </FadeInOnScroll>
 
